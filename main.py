@@ -45,8 +45,7 @@ def install():
     os.system('make')
     os.system('sudo make install')
   if os=='redhat' or os=='centos' or os=='fedora':
-    os.system('ln -s /etc/rc.d/init.d/keepalived.init /etc/rc.d/rc3.d/S99keepalived
-')
+    os.system('ln -s /etc/rc.d/init.d/keepalived.init /etc/rc.d/rc3.d/S99keepalived')
   else:
     os.system('sudo systemctl enable keepalived')
   print('Installing gravity-sync...')
