@@ -129,6 +129,10 @@ elif '--config' in sys.argv:
   print('Please insert the information shown into the configuration file here (wait 5 seconds), then type CTRL-O, ENTER, CTRL-X')
   time.sleep(5)
   os.system('nano /etc/keepalived/keepalived.conf')
+  os.system('mv ./98-custom.conf /etc/dnsmasq.d/98-custom.conf')
+  print('Please insert the virtual IP you chose into this file (wait 5 seconds), then type CTRL-O, ENTER, CTRL-X')
+  time.sleep(5)
+  os.system('nano /etc/dnsmasq.d/98-custom.conf')
   print('Configuration finished. Now run --start on the main server.')
 elif '--start' in sys.argv:
   os.system('gravity-sync compare')
