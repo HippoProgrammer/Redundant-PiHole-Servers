@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: RedundantPiholeServers
+Version: 0.1
+Summary: A semi-automatic installer for dual Pihole servers in a redundant config
+Author-email: HippoProgrammer <bcgcustomerservices@gmail.com>
+Project-URL: Homepage, https://github.com/HippoProgrammer/Redundant-PiHole-Servers
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+An automatic installer to set up two redundant PiHole servers.

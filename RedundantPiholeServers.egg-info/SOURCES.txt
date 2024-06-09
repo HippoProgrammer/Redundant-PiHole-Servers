@@ -1,0 +1,6 @@
+README.md
+pyproject.toml
+RedundantPiholeServers.egg-info/PKG-INFO
+RedundantPiholeServers.egg-info/SOURCES.txt
+RedundantPiholeServers.egg-info/dependency_links.txt
+RedundantPiholeServers.egg-info/top_level.txt

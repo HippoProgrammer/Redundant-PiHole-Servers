@@ -15,7 +15,7 @@ class UnsupportedWarning(Warning):
 def install():
   print('Installing PiHole...')
   os.system('curl -sSL https://install.pi-hole.net | sudo PIHOLE_SKIP_OS_CHECK=true bash')
-  if os=='debian' or os=='ubuntu':
+  if os_id=='debian' or os_id=='ubuntu':
     os.system('sudo ufw disable')
     os.system('sudo ufw allow 80/tcp')
     os.system('sudo ufw allow 53/tcp')
@@ -36,7 +36,7 @@ def install():
   os.system('./configure')
   os.system('make')
   os.system('sudo make install')
-  if os=='redhat' or os=='centos' or os=='fedora':
+  if os_id=='redhat' or os_id=='centos' or os_id=='fedora':
     os.system('ln -s /etc/rc.d/init.d/keepalived.init /etc/rc.d/rc3.d/S99keepalived')
   else:
     os.system('sudo systemctl enable keepalived')
@@ -61,21 +61,21 @@ def install_debian():
   os.system('sudo apt-get install ufw -y')
   print('Installing unbound...')
   os.system('sudo apt-get install unbound -y')
-
+  install()
 def install_redhat():
   print('Beginning installation...')
   print('Installing dependencies...')
   os.system('yum install openssl-devel libnl3-devel iptables-devel ipset-devel file-devel net-snmp-devel glib2-devel pcre2-devel libnftnl-devel libmnl-devel systemd-devel kmod-devel NetworkManager-libnm-devel python-sphinx epel-release python-sphinx_rtd_theme latexmk texlive texlive-titlesec texlive-framed texlive-threeparttable texlive-wrapfig texlive-multirow python-sphinx-latex make autoconf automake')
   print('Installing unbound...')
   os.system('yum install unbound')
-
+  install()
 def install_arch():
   print('Beginning installation...')
   print('Installing dependencies...')
   os.system('pacman -S ipset libnl1 TDB net-snmp pcre-2 python-sphinx python-sphinx_rtd_theme texlive-core texlive-bin texlive-latexextra')
   print('Installing unbound...')
   os.system('pacman -S unbound')
-
+  install()
 def install_alpine():
   print('Beginning installation...')
   print('Installing dependencies...')
@@ -85,7 +85,7 @@ def install_alpine():
   print('Installing unbound...')
   os.system('apk add unbound')
   os.system('rc-update add unbound default')
-
+  install()
 if '--clean' in sys.argv:
   if os.file.exists('.redundant-server-installed'):
     os.remove('.redundant-server-installed')
@@ -129,13 +129,13 @@ elif '--start' in sys.argv:
   os.system('gravity-sync compare')
   os.system('gravity-sync push')
 else:
-  if os.file.exists('.redundant-server-installed'):
+  if os.path.exists('.redundant-server-installed'):
     print('Installation has already occured. To reinstall, run --clean.')
     exit()
   # begin system identification
   print('Identifying system...')
-  os = platform.freedesktop_os_release()['ID'] # automatic id
-  if os=='debian' or os=='ubuntu': # check for debian-based systems
+  os_id = platform.freedesktop_os_release()['ID'] # automatic id
+  if os_id=='debian' or os_id=='ubuntu': # check for debian-based systems
     install_debian()
   else: # go to manual
     warnings.warn('OS could not be identified automatically.',OSIdentificationWarning)
@@ -147,16 +147,16 @@ else:
     print('alpine')
     print('debian')
     print('ubuntu')
-    os = input('Please select: ')
-    if os=='redhat' or os=='centos' or os=='fedora':
+    os_id = input('Please select: ')
+    if os_id=='redhat' or os_id=='centos' or os_id=='fedora':
       install_redhat()
-    elif os=='arch':
+    elif os_id=='arch':
       warnings.warn('This OS is not officially supported or maintained by PiHole.')
       install_arch()
-    elif os=='alpine':
+    elif os_id=='alpine':
       warnings.warn('This OS is not officially supported or maintained by PiHole.')
       install_alpine()
-    elif os=='debian' or os=='ubuntu':
+    elif os_id=='debian' or os_id=='ubuntu':
       install_debian()
     else:
       print('That is not a supported OS. Did you type it correctly? Please try again later.')
