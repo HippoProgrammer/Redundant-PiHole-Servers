@@ -57,6 +57,7 @@ def install():
   f=open('.redundant-server-installed','w')
   f.write('A placeholder file to prevent reinstallation. You can delete it if you want.')
   f.close()
+  print('Installation complete. Please now run --config once both machines are installed.')
 
 # define installation functions for specific OS
 def install_debian():
